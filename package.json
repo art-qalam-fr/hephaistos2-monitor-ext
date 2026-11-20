@@ -1,0 +1,145 @@
+{
+  "name": "orchestrator-monitor",
+  "displayName": "Hephaistos Orchestrator Monitor",
+  "description": "Extension du Hephaistos2-Kit : supervision en temps rÃ©el de l'orchestrateur multi-agents du kit (tÃ¢ches, agents, modÃ¨les, providers) via bridge WebSocket sur orchestrator.db",
+  "version": "0.0.78",
+  "icon": "resources/hephaistos-icon.png",
+  "publisher": "hephaistos",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/art-qalam-fr/hephaistos2-kit.git",
+    "directory": "extensions/orchestrator-monitor"
+  },
+  "homepage": "https://github.com/art-qalam-fr/hephaistos2-kit",
+  "bugs": {
+    "url": "https://github.com/art-qalam-fr/hephaistos2-kit/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "orchestratorMonitor",
+          "title": "Hephaistos",
+          "icon": "resources/hephaistos-icon.png"
+        }
+      ]
+    },
+    "views": {
+      "orchestratorMonitor": [
+        {
+          "id": "orchestratorMonitor.tasks",
+          "name": "TÃ¢ches",
+          "type": "webview",
+          "icon": "resources/hephaistos-icon.png",
+          "contextualTitle": "TÃ¢ches Orchestrateur"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "orchestratorMonitor.openPanel",
+        "title": "Hephaistos : Ouvrir le panneau Orchestrateur",
+        "icon": "$(layout-editor-right)"
+      },
+      {
+        "command": "orchestratorMonitor.refresh",
+        "title": "Hephaistos : Actualiser les donnÃ©es",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "orchestratorMonitor.startBridge",
+        "title": "Hephaistos : DÃ©marrer le bridge",
+        "icon": "$(plug)"
+      },
+      {
+        "command": "orchestratorMonitor.restartBridge",
+        "title": "Hephaistos : RedÃ©marrer le bridge",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "orchestratorMonitor.clearCompleted",
+        "title": "Hephaistos : Purger les tÃ¢ches terminÃ©es",
+        "icon": "$(check-all)"
+      },
+      {
+        "command": "orchestratorMonitor.clearFailed",
+        "title": "Hephaistos : Purger les tÃ¢ches Ã©chouÃ©es",
+        "icon": "$(error)"
+      },
+      {
+        "command": "orchestratorMonitor.clearPending",
+        "title": "Hephaistos : Purger les tÃ¢ches en attente",
+        "icon": "$(watch)"
+      },
+      {
+        "command": "orchestratorMonitor.sendToChat",
+        "title": "Hephaistos : Envoyer du texte au chat Devin",
+        "icon": "$(send)"
+      },
+      {
+        "command": "orchestratorMonitor.joinBinome",
+        "title": "Hephaistos : Rejoindre le binÃ´me",
+        "icon": "$(link)"
+      },
+      {
+        "command": "orchestratorMonitor.rejoinPair",
+        "title": "Hephaistos : Rejoindre la derniÃ¨re paire",
+        "icon": "$(history)"
+      },
+      {
+        "command": "orchestratorMonitor.pairStatus",
+        "title": "Hephaistos : Statut de la paire",
+        "icon": "$(organization)"
+      }
+    ],
+    "menus": {},
+    "configuration": {
+      "title": "Hephaistos Orchestrator Monitor",
+      "properties": {
+        "orchestratorMonitor.autoWake": {
+          "type": "boolean",
+          "default": true,
+          "description": "Injecte un message de rÃ©veil dans le chat Devin quand une tÃ¢che orchestrÃ©e passe en completed/failed â€” uniquement si la tÃ¢che porte un tag [cascade:<id>] ou [agycascade:<id>] (sans tag : feed monitor + bus comms seulement, jamais la conversation active)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm install && npm run compile && npm run test:bridge",
+    "compile": "tsc -p ./",
+    "build:bridge": "npm install --prefix ws-bridge",
+    "test:bridge": "node --test tests/bridge-sqlite.cjs tests/bridge-startup.cjs",
+    "verify:vsix": "node tests/verify-vsix-contents.cjs",
+    "release": "npx vsce package && npm run verify:vsix",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.0",
+    "@types/vscode": "^1.85.0",
+    "@types/ws": "^8.18.2",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "ws": "^8.0.0"
+  },
+  "galleryBanner": {
+    "color": "#1a1d21",
+    "theme": "dark"
+  },
+  "__metadata": {
+    "installedTimestamp": 1791829482286,
+    "targetPlatform": "undefined",
+    "size": 14195789
+  }
+}

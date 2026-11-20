@@ -1,0 +1,7 @@
+node_modules/
+*.log
+
+# Seule la release courante est trackee (binaire distribue) — mettre a
+# jour la version a chaque bump (git rm --cached l ancienne au passage).
+/orchestrator-monitor-*.vsix
+!orchestrator-monitor-0.0.78.vsix

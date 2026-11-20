@@ -1,0 +1,13 @@
+.gitignore
+.vscode/**
+*.vsix
+p.tmp
+README-UI.md
+preview/**
+tests/**
+src/**
+tsconfig.json
+package-lock.json
+ws-bridge/package.json
+ws-bridge/package-lock.json
+out/**/*.map
